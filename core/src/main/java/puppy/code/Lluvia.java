@@ -45,9 +45,9 @@ public class Lluvia implements Screen {
         this.texturaEnemigo1 = new Texture(Gdx.files.internal("enemigo1.png"));
         this.texturaEnemigo2 = new Texture(Gdx.files.internal("enemigo2.png"));
 
-        this.sonidoDrop = Gdx.audio.newSound(Gdx.files.internal("drop.wav"));
-        this.sonidoHurt = Gdx.audio.newSound(Gdx.files.internal("hurt.ogg"));
-        this.musicaLluvia = Gdx.audio.newMusic(Gdx.files.internal("rain.mp3"));
+        this.sonidoDrop = Gdx.audio.newSound(Gdx.files.internal("pickup.mp3"));
+        this.sonidoHurt = Gdx.audio.newSound(Gdx.files.internal("hit.mp3"));
+        this.musicaLluvia = Gdx.audio.newMusic(Gdx.files.internal("haggstrom.mp3"));
 
         this.musicaLluvia.setLooping(true);
         this.musicaLluvia.play();
@@ -144,8 +144,10 @@ public class Lluvia implements Screen {
         }
 
         if (AdministradorJuego.getInstancia().getVidas() <= 0) {
-            AdministradorJuego.getInstancia().reiniciarJuego();
-            this.objetosCayendo.clear();
+            int puntosFinales = AdministradorJuego.getInstancia().getPuntosTotales();
+            this.musicaLluvia.stop();
+            this.game.setScreen(new PantallaGameOver(this.game, puntosFinales));
+            this.dispose();
         }
     }
 

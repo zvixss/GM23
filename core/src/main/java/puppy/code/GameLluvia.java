@@ -12,7 +12,7 @@ public class GameLluvia extends Game {
     public void create() {
         this.batch = new SpriteBatch();
         this.font = new BitmapFont();
-        this.setScreen(new Lluvia(this));
+        this.setScreen(new PantallaMenu(this));
     }
 
     @Override

@@ -4,13 +4,12 @@ public class AdministradorJuego {
     private static AdministradorJuego instancia;
     private int puntosTotales;
     private int vidas;
-    private boolean enNether;
-    private final int puntosParaNether = 100;
+    private int puntajeMaximo;
 
     private AdministradorJuego() {
         this.puntosTotales = 0;
         this.vidas = 3;
-        this.enNether = false;
+        this.puntajeMaximo = 0;
     }
 
     public static AdministradorJuego getInstancia() {
@@ -22,17 +21,13 @@ public class AdministradorJuego {
 
     public void sumarPuntos(int puntos) {
         this.puntosTotales += puntos;
-        verificarNivel();
+        if (this.puntosTotales > this.puntajeMaximo) {
+            this.puntajeMaximo = this.puntosTotales;
+        }
     }
 
     public void restarVidas(int dano) {
         this.vidas -= dano;
-    }
-
-    private void verificarNivel() {
-        if (this.puntosTotales >= this.puntosParaNether && !this.enNether) {
-            this.enNether = true;
-        }
     }
 
     public int getPuntosTotales() {
@@ -43,13 +38,12 @@ public class AdministradorJuego {
         return this.vidas;
     }
 
-    public boolean isEnNether() {
-        return this.enNether;
+    public int getPuntajeMaximo() {
+        return this.puntajeMaximo;
     }
 
     public void reiniciarJuego() {
         this.puntosTotales = 0;
         this.vidas = 3;
-        this.enNether = false;
     }
 }
