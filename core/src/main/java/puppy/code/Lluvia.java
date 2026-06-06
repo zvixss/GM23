@@ -119,16 +119,17 @@ public class Lluvia implements Screen {
             }
         }
 
-        if (TimeUtils.nanoTime() - this.tiempoUltimoObjeto > 1000000000) {
+        if (TimeUtils.nanoTime() - this.tiempoUltimoObjeto > 500000000L) {
             generarObjeto();
         }
 
         Iterator<ObjetoCayendo> iterador = this.objetosCayendo.iterator();
         while (iterador.hasNext()) {
             ObjetoCayendo objeto = iterador.next();
-            objeto.actualizarMovimiento();
 
-            if (objeto.getHitbox().y + objeto.getHitbox().height < 0) {
+            boolean fueraDePantalla = objeto.actualizarFrameFisica();
+
+            if (fueraDePantalla) {
                 iterador.remove();
             } else if (objeto.getHitbox().overlaps(this.jugador.getHitbox())) {
                 objeto.aplicarEfecto();

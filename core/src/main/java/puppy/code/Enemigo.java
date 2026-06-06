@@ -8,6 +8,7 @@ public class Enemigo extends ObjetoCayendo {
     public Enemigo(float posicionX, float posicionY, float velocidadCaida, Texture textura, int dano) {
         super(posicionX, posicionY, velocidadCaida, textura, 64, 64);
         this.dano = dano;
+        this.estrategia = new CaidaZigZag();
     }
 
     @Override
@@ -22,5 +23,9 @@ public class Enemigo extends ObjetoCayendo {
 
     public int getDano() {
         return this.dano;
+    }
+
+    @Override
+    protected void animacionAdicional() {
     }
 }

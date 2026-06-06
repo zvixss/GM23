@@ -8,6 +8,7 @@ public abstract class ObjetoCayendo implements Atrapable {
     protected Rectangle hitbox;
     protected Texture textura;
     protected float velocidadCaida;
+    protected EstrategiaMovimiento estrategia;
 
     public ObjetoCayendo(float posicionX, float posicionY, float velocidadCaida, Texture textura, float ancho, float alto) {
         this.hitbox = new Rectangle(posicionX, posicionY, ancho, alto);
@@ -15,8 +16,26 @@ public abstract class ObjetoCayendo implements Atrapable {
         this.textura = textura;
     }
 
-    public void actualizarMovimiento() {
-        this.hitbox.y -= this.velocidadCaida;
+    public void setEstrategia(EstrategiaMovimiento estrategia) {
+        this.estrategia = estrategia;
+    }
+
+    public final boolean actualizarFrameFisica() {
+        mover();
+        animacionAdicional();
+        return salioDePantalla();
+    }
+
+    private void mover() {
+        if (this.estrategia != null) {
+            this.estrategia.mover(this);
+        }
+    }
+
+    protected abstract void animacionAdicional();
+
+    private boolean salioDePantalla() {
+        return this.hitbox.y + this.hitbox.height < 0;
     }
 
     public void dibujar(SpriteBatch batch) {
@@ -26,5 +45,9 @@ public abstract class ObjetoCayendo implements Atrapable {
     @Override
     public Rectangle getHitbox() {
         return this.hitbox;
+    }
+
+    public float getVelocidadCaida() {
+        return this.velocidadCaida;
     }
 }

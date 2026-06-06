@@ -8,6 +8,7 @@ public class Mineral extends ObjetoCayendo {
     public Mineral(float posicionX, float posicionY, float velocidadCaida, Texture textura, int puntosValor) {
         super(posicionX, posicionY, velocidadCaida, textura, 48, 48);
         this.puntosValor = puntosValor;
+        this.estrategia = new CaidaRecta();
     }
 
     @Override
@@ -18,5 +19,9 @@ public class Mineral extends ObjetoCayendo {
     @Override
     public void aplicarEfecto() {
         AdministradorJuego.getInstancia().sumarPuntos(this.puntosValor);
+    }
+
+    @Override
+    protected void animacionAdicional() {
     }
 }
