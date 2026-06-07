@@ -30,6 +30,10 @@ public class AdministradorJuego {
         this.vidas -= dano;
     }
 
+    public void sumarVida() {
+        this.vidas++;
+    }
+
     public int getPuntosTotales() {
         return this.puntosTotales;
     }
